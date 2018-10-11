@@ -299,6 +299,10 @@ import MyComponent from 'react-component-example/src/MyComponent.jsx'
 
 这种情况下，导入的是 ES6 代码，并且会被加入父级项目的编译过程。此外，父级项目在编译这个文件的时候会读取组件的 .babelrc 配置文件。
 
+### 如何后续开发
+
+clone此源码到本地，起初尝试时请修改package.json的name，改一个自定义的名字如vivy-learn，发布后npm install vivy-learn，并import组件引入，确认每个组件都能正常引用后，再将name改回dt-antd，并提交到git。
+
 
 ## 关于
 

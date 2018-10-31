@@ -1,10 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import { is, fromJS } from 'immutable';
-import { Layout, Menu, Icon, Dropdown, Avatar } from 'antd';
+import { Layout, Icon, } from 'antd';
 import 'antd/dist/antd.css';
-import './index.css';
-import logos from './logo.png';
+import './index.less';
+import HeadLogo from './logo';
+import NavMenu from './menu';
+import RightContent from './right';
 /**
  * 整体框架组件，结构：左上下模式，左边分title和菜单，上边分左(收起展开按钮)和右(登陆员信息)
  * @author: 雏田
@@ -27,7 +28,11 @@ import logos from './logo.png';
  *       userItem,    // 【选填】 object，不满足只有退出登陆的下拉  菜单模式而自定义书写
  *     },
  *     other, // 【选填】 头部右边默认只有一个头像+用户名，要加其它东西在这里自定义书写，会累加
- *   }
+ *   },
+ *   theme: {  // 主题
+ *     navTheme: 'light', // 主题颜色，白色light和深色dark，默认dark
+ *     isTop: true, // 导航是否显示在头部,默认显示在左边
+ *   }, 
  * }
  * <PageLayout {...path} />
  *
@@ -47,7 +52,6 @@ import logos from './logo.png';
  * {对应父级的path[也就是菜单栏menu中的url字段]}/你要定义的路由(如新增add，编辑edit/:id,详情detail/:id等)
  */
 const { Header, Sider, Content } = Layout;
-const SubMenu = Menu.SubMenu;
 export default class SiderDemo extends React.Component {
   state = {
     collapsed: false, // 左侧是否缩小
@@ -55,15 +59,21 @@ export default class SiderDemo extends React.Component {
     menu: null,
     openKeys: '', // 展开的key
     selectedKeys: '', // 选中的Key
+    maxWidth: undefined, // isTop时导航的最大宽度
   };  
   /**
    * [点击展开或缩小左侧的事件]
    * @return {[type]} [description]
    */
-  toggle = () => {
+  toggle = () => {   
     this.setState({
       collapsed: !this.state.collapsed,
     });
+  }
+  static getDerivedStateFromProps(props) {
+    return {
+      maxWidth: (props.contentWidth === 'Fixed' ? 1200 : window.innerWidth) - 280 - 165 - 40,
+    };
   }
   /**
    * [shouldComponentUpdate 如果state值没有改变时就算调用了setState方法，页面也不会重新渲染]
@@ -72,7 +82,7 @@ export default class SiderDemo extends React.Component {
    * @return {[type]}           [description]
    */
   shouldComponentUpdate(nextProps, nextState) {
-    if(!is(fromJS(this.props), fromJS(nextProps))) {
+    if(!is(fromJS(this.props), fromJS(nextProps)) && !(nextProps.theme && nextProps.theme.isTop)) {
       this.getUrl(nextProps.siderMenu.menu);
     }    
     return !is(fromJS(this.props), fromJS(nextProps)) || !is(fromJS(this.state),fromJS(nextState))
@@ -142,12 +152,17 @@ export default class SiderDemo extends React.Component {
       selectedKeys
     });
   }
+  handleOpen(openKeys) {
+    this.setState({
+      openKeys: openKeys[openKeys.length - 1],
+    })
+  }
   /**
    * [render description]
    * @return {[type]} [description]
    */
   render() {
-    const {
+    let {
       children, // 框架的中间部分（必填） 
       siderMenu: { // 框架的左边部分
         logo, // 左侧头部logo，默认为公交云logo
@@ -163,73 +178,51 @@ export default class SiderDemo extends React.Component {
           userItem, // object，不满足只有退出登陆的下拉菜单模式而自定义书写
         },
         other, // 头部右边默认只有一个头像+用户名，要加其它东西在这里自定义书写，会累加
-      }
-    } = this.props;   
-    const {path, selectedKeys, collapsed, openKeys} = this.state;
-    // 用户名对应的下拉菜单
-    const _menu = userItem ? userItem : (
-      <Menu className='header_menu'>        
-        <Menu.Item key="logout" onClick={()=>{if(logOut) logOut();}}>
-          <Icon type="logout" />退出登录
-        </Menu.Item>
-      </Menu>
-    );
+      },     
+      theme, // 主题
+    } = this.props; 
+    theme = theme || {};
+    const isTop = theme && theme.isTop || false;
+    const {path, selectedKeys, collapsed, openKeys, maxWidth} = this.state;   
     // 如果初始或者切换时是隐藏模式，则不选中当前选中的key
     const menuProps = collapsed ? {} : {openKeys: [openKeys]};
-    const headerWidth = collapsed ? 80 : 256;
-    return (
+    const headerWidth = collapsed ? 80 : 256;   
+    return isTop ? (
+      <Layout style={{height: '100%'}}>
+        <div className={`head ${theme.navTheme === 'light' ? 'light' : 'dark'} layoutHeader`}>
+        <div         
+          className={`main`}
+        >
+          <div className='left'>
+            <HeadLogo {...{logo, title, isTop, theme}} />
+            <div
+             style={{maxWidth}}
+            >
+              <NavMenu {...{selectedKeys, menuProps, menu, path, isTop, theme, handleOpen: this.handleOpen.bind(this)}} />
+            </div>
+          </div>          
+          <RightContent {...{other, userItem, userChange, userPhoto, userName, logOut, theme}} />
+        </div>
+      </div>
+      <Content style={{
+        background: '#f5f5f5',
+        minHeight: 280,
+        paddingTop: 64,
+      }}>
+        {children}
+      </Content>
+      </Layout>
+    ) : (
       <Layout style={{height: '100%'}}>
         <Sider
           trigger={null}
           collapsible
           width={256}
           collapsed={collapsed}
-          className='navSider fixSiderbar scroll'
+          className={`navSider fixSiderbar scroll ${theme.navTheme}`}
         >
-          <div className='navLogo' key="logo">
-            <Link to="/">
-              <img src={logo || logos} alt="logo" />
-              <h1>{title || '管理系统'}</h1>
-            </Link>
-          </div>
-          <Menu
-            key="Menu"
-            theme="dark"
-            mode="inline"
-            style={{padding: '16px 0'}}            
-            selectedKeys={[selectedKeys]}
-            // openKeys = {[openKeys]}
-            onOpenChange={(openKeys) => {
-              this.setState({
-                openKeys: openKeys[openKeys.length - 1],
-              })
-            }}
-            {...menuProps}
-          >
-          {
-            menu && menu.map((item) => {
-              return (
-                <SubMenu
-                  key={item.code}
-                  title={<span><Icon type={item.icon}/><span>{item.name}</span></span>}                  
-                >
-                {
-                  item.subMenus && item.subMenus.map((value)=>{                    
-                    return (
-                    <Menu.Item key={value.code}>
-                      {
-                        value.url !== path ?
-                        (<Link to={`${value.url}`}>{value.name}</Link>) :
-                        value.name
-                      }
-                    </Menu.Item>)
-                  })
-                }                               
-                </SubMenu>
-              )
-            })
-          }         
-          </Menu>
+          <HeadLogo {...{logo, title, isTop, theme}} />
+          <NavMenu {...{selectedKeys, menuProps, menu, path, isTop, theme, handleOpen: this.handleOpen.bind(this)}} />
         </Sider>
         <Layout>
           <Header className="layoutHeader" style={{
@@ -243,17 +236,7 @@ export default class SiderDemo extends React.Component {
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
-            <div className='right'>
-              {other }
-              <Dropdown overlay={_menu}>
-                {
-                  userChange || (<span className='action'>
-                    <Avatar size="small" className='avatar' src={userPhoto || 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png'} />
-                    <span className=''>{userName ? userName : '用户名'}</span>
-                  </span>)
-                }                
-              </Dropdown>
-            </div>
+            <RightContent {...{other, userItem, userChange, userPhoto, userName, logOut, theme}} />
           </Header>
           <Content style={{background: '#f5f5f5', minHeight: 280, paddingLeft: `${headerWidth}px`, paddingTop: 64}}>
             {children}

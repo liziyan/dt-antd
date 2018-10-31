@@ -1,0 +1,197 @@
+@import '~antd/lib/style/themes/default.less';
+@nav-header-height: 64px;
+
+.navLogo {
+  height: @nav-header-height;
+  position: relative;
+  line-height: @nav-header-height;
+  padding-left: (@menu-collapsed-width - 32px) / 2;
+  transition: all 0.3s;
+  background: transparent;
+  overflow: hidden;
+  img {
+    display: inline-block;
+    vertical-align: middle;
+    height: 32px;
+  }
+  h1 {
+    color: white;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 20px;
+    margin: 0 0 0 12px;
+    font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 600;
+  }
+}
+.navLogoWhite{padding-left: 0}
+.navLogoWhite h1{color: rgb(0,33,64);}
+.navSider {
+  min-height: 100vh;
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  position: relative;
+  z-index: 10;
+  &.fixSiderbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    :global(.ant-menu-root) {
+      overflow-y: auto;
+      height: ~'calc(100vh - @{nav-header-height})';
+    }
+  }
+  &.light {
+    box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+    background-color: white;
+    .logo {
+      background: white;
+      box-shadow: 1px 1px 0 0 @border-color-split;
+      h1 {
+        color: @primary-color;
+      }
+    }
+    :global(.ant-menu-light) {
+      border-right-color: transparent;
+    }
+  }
+}
+
+.icon {
+  width: 14px;
+  margin-right: 10px;
+}
+
+:global {
+  .top-nav-menu li.ant-menu-item {
+    height: @nav-header-height;
+    line-height: @nav-header-height;
+  }
+  .drawer .drawer-content {
+    background: #001529;
+  }
+  .ant-menu-inline-collapsed {
+    & > .ant-menu-item .sider-menu-item-img + span,
+    &
+      > .ant-menu-item-group
+      > .ant-menu-item-group-list
+      > .ant-menu-item
+      .sider-menu-item-img
+      + span,
+    & > .ant-menu-submenu > .ant-menu-submenu-title .sider-menu-item-img + span {
+      max-width: 0;
+      display: inline-block;
+      opacity: 0;
+    }
+  }
+  .ant-menu-item .sider-menu-item-img + span,
+  .ant-menu-submenu-title .sider-menu-item-img + span {
+    transition: opacity 0.3s @ease-in-out, width 0.3s @ease-in-out;
+    opacity: 1;
+  }
+}
+
+.right{
+  float: right;
+  height: 100%;
+}
+.right .action{
+  cursor: pointer;
+    display: inline-block;
+    height: 100%;
+    padding: 0px 20px 0 12px;
+    transition: all 0.3s;
+}
+.right .avatar{   
+  margin: 20px 8px 20px 0;
+  color: #1890ff;
+  background: hsla(0,0%,100%,.85);
+  vertical-align: middle;  
+}
+.right .colorWhite{color: white}
+
+
+/*
+
+ */
+
+.head {
+  width: 100%;
+  transition: background 0.3s, width 0.2s;
+  height: 64px;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  position: relative;
+  background-color: rgb(0, 21, 41);
+  :global {
+    .ant-menu-submenu.ant-menu-submenu-horizontal {
+      line-height: 64px;
+      height: 100%;
+      .ant-menu-submenu-title {
+        height: 100%;
+      }
+    }
+  }
+  &.light {
+    background-color: #fff;
+  }
+  .main {
+    display: flex;
+    height: 64px;
+    padding-left: 24px;
+    &.wide {
+      max-width: 1200px;
+      margin: auto;
+      padding-left: 0;
+    }
+    .left {
+      flex: 1;
+      display: flex;
+    }
+    .right {
+      width: 324px;
+      text-align: right;
+      .action{
+        padding-right: 24px;
+      }
+    }
+  }
+}
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+.header_menu .anticon{
+   margin-right: 8px;
+}
+.header_menu .ant-dropdown-menu-item{
+   width: 160px;
+}
+
+.scroll::-webkit-scrollbar,body::-webkit-scrollbar {
+ width: 6px;
+ height: 10px;
+}
+ .scroll::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+ background-color:rgba(255,255,255,0.3);
+ -webkit-border-radius: 2em;
+ -moz-border-radius: 2em;
+ border-radius:2em;
+}
+.scroll::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+ background-color:rgba(255,255,255,0.3);
+ -webkit-border-radius: 2em;
+ -moz-border-radius: 2em;
+ border-radius:2em;
+}
+.layoutHeader{
+  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  position: fixed;
+  z-index: 2;
+  top: 0;
+}

@@ -479,22 +479,23 @@ const selectBtns = [{
 ```
 **path参数说明**
 
-参数名 | 子参数 | 描述 | 类型 | 是否必填 | 备注 
-----|----|----------|----|----|-----
-loading | | 显示加载框 | bool | 否 | -
-data | | 展示的数据 | object | 是 | -
- | list | 表格数据 | array | 是 | -
- | pagination | 分页设置 | object | 是 | 配置参看antdesign官网的pagination组件，https://ant.design/components/pagination-cn/
-columns | | 表头设置 | array | 是 | 具体配置项看antdesign的table组件，https://ant.design/components/table-cn/
-rowKey | | 每行对应的key，每行不能重复，建议用id | string或int | 是
-onChange | | 表格分页状态改变之后 | function | 是 | Function(selectedRowKeys, selectedRows)
-noCheck | | 是否有全选,默认为false | bool | 否 | -
-selectBtns | | 如果有全选，选中之后的公用操作 | object | 否 | -
- | title | 显示的文字 | string | 是 | -
- | judgeShow | 是否要选中行才显示 | bool | 是 | -
- | callBack | 点击的回调函数 | function | 是 | 没有返回参数，可自行去onChange里取已经勾选的值
-footer | | 页脚 | function | 否 | -
-scroll | | 横向宽度 | object | 否 | 这个值必须等于所有列的width相加之和，具体看antdesign官网的table组件
+参数名 | 子参数 | 备注 | 描述 | 类型 | 是否必填 
+----|----|----|----------|----|----
+loading | | | 显示加载框 | bool | 否
+data | | | 展示的数据 | object | 是
+ | list | | 表格数据 | object | 是,
+ | pagination | 配置参看antdesign官网的pagination组件，https://ant.design/components/pagination-cn/ | 分页设置 | string | 是
+columns| | 具体配置项看antdesign的table组件，https://ant.design/components/table-cn/ | 表头设置 | array | 是
+rowKey| | | 每行对应的key，每行不能重复，建议用id | string或int | 是
+onChange| | Function(selectedRowKeys, selectedRows) | 表格分页状态改变之后 | function | 是
+noCheck| | | 是否有全选,默认为false | bool | 否
+selectBtns| | | 如果有全选，选中之后的公用操作 | object | 否
+ | title | | 显示的文字 | string | 是
+ | judgeShow | | 是否要选中行才显示 | bool | 是
+ | callBack | 没有返回参数，可自行去onChange里取已经勾选的值 | 点击的回调函数 | function | 是
+footer| | | 页脚 | function | 否
+scroll| | 这个值必须等于所有列的width相加之和，具体看antdesign官网的table组件 | 横向宽度 | object | 否
+
 
 ## UploadImage
 

@@ -15,17 +15,20 @@
         type: 'input', // input输入框
         placeholder: '请输入规则编号',
         defaultValue: '默认值',
-        isRequire: true, // 必填        
+        isRequire: true, // 必填 
+        other:{}, // 一些其它的属性       
       }, {
         id:'status',
         label: '选择时间',
         type: 'timePicker', 
         placeholder: '请输入时间',
+        other:{}, // 一些其它的属性
       },{
         id: 'rule1',
         label: '选择日期范围',
         type: 'rangePicker', 
-        placeholder: '请输入选择日期范围'
+        placeholder: '请输入选择日期范围',
+        other:{}, // 一些其它的属性
       }, {
         id:'status1',
         label: '使用状态',
@@ -34,14 +37,22 @@
         option: [{
           label: '关闭',
           value: 4,
-        }], 
-      },],
+        }],
+        other:{}, // 一些其它的属性 
+      }, {
+        id:'status1',
+        label: '地区',
+        type: 'Cascader', // 下拉框
+        option: ...    
+        other:{}, // 一些其它的属性
+      }],
       // 被隐藏起来的选项,如果默认全部显示，则不调用
       hidden: [{
         id: 'date',
         label: '更新日期',
         type: 'datePicker', // 日期选择器
         placeholder: '请输入更新日期',
+        other:{}, // 一些其它的属性
       }],
       // 新增按钮，默认白色背景的按钮，需要更改请重写组件  
       btns:[{
@@ -68,9 +79,11 @@ import {
   Icon,
   Button, 
   DatePicker, 
-  TimePicker
+  TimePicker,
+  Cascader,
 } from 'antd';
 import { is, fromJS } from 'immutable';
+import options from './cascader-address-options';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -156,7 +169,7 @@ class TableSearch extends React.Component {
           return (<Row gutter={{ md: 8, lg: 24, xl: 48 }} key={index}>
           {            
             value.map((key, _index) => {
-              const {label, placeholder, id, option, defaultValue, isRequire} = key;
+              const {label, placeholder, id, option, defaultValue, isRequire, other} = key;
               switch(key.type) {
                 case 'input':      
                   return (<Col {...colLayout} key={_index}>
@@ -164,7 +177,7 @@ class TableSearch extends React.Component {
                         {getFieldDecorator(id, {
                           initialValue: defaultValue,
                           rules: [{ required: isRequire, message: '必填' }],
-                        })(<Input key={id} placeholder={placeholder}/>)}
+                        })(<Input key={id} placeholder={placeholder} {...other}/>)}
                       </FormItem>
                   </Col>);
                 case 'select':
@@ -173,7 +186,7 @@ class TableSearch extends React.Component {
                         {getFieldDecorator(id, {
                           initialValue: defaultValue || option[0].value,
                         })(
-                          <Select placeholder={placeholder} key={id}>
+                          <Select placeholder={placeholder} key={id} {...other}>
                             {
                               option && option.map((item) => {
                                 return (<Option key={item.value} value={item.value}>{item.label}</Option>)
@@ -187,7 +200,7 @@ class TableSearch extends React.Component {
                   return (<Col {...colLayout} key={_index}>
                     <FormItem label={label} {...formItemLayout}>
                       {getFieldDecorator(id)(
-                        <DatePicker style={{ width: '100%' }} key={id} placeholder={placeholder} />
+                        <DatePicker style={{ width: '100%' }} key={id} placeholder={placeholder} {...other} />
                       )}
                     </FormItem>
                   </Col>);
@@ -195,15 +208,23 @@ class TableSearch extends React.Component {
                   return (<Col {...colLayout} key={_index}>
                     <FormItem label={label} {...formItemLayout}>
                       {getFieldDecorator(id)(
-                        <TimePicker style={{ width: '100%' }} key={id} placeholder={placeholder} />
+                        <TimePicker style={{ width: '100%' }} key={id} placeholder={placeholder} {...other} />
                       )}
                     </FormItem>
                   </Col>);
-                  case 'rangePicker':
+                case 'rangePicker':
                   return (<Col {...colLayout} key={_index}>
                     <FormItem label={label} {...formItemLayout}>
                       {getFieldDecorator(id)(
-                        <RangePicker key={id} style={{ width: '100%' }} placeholder={placeholder} />
+                        <RangePicker key={id} style={{ width: '100%' }} placeholder={placeholder} {...other} />
+                      )}
+                    </FormItem>
+                  </Col>);
+                case 'Cascader':
+                  return (<Col {...colLayout} key={_index}>
+                    <FormItem label={label} {...formItemLayout}>
+                      {getFieldDecorator(id)(
+                        <Cascader options={option || options} placeholder={placeholder} {...other} />
                       )}
                     </FormItem>
                   </Col>);

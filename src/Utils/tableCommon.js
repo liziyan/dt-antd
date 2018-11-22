@@ -14,6 +14,7 @@ export default {
       ...state.searchList,
       currentPage: pagination.current,
       pageSize: pagination.pageSize,
+      pageNo: pagination.current,
     }
     if(!is(fromJS(state.searchList), fromJS(searchList))){
       callBack({

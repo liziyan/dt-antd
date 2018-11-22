@@ -128,6 +128,7 @@ const path = {
     logo,
     title,
     menu,
+    logoLink,
   },
   pageHead: {
     user: {
@@ -153,6 +154,7 @@ siderMenu | | | 框架左边的内容  | object | 是
  | logo | | logo图片 | string |  否(默认为公交云logo)
  | title | | 左侧头部文字 | string |  是
  | menu | | 左侧菜单(详情见下面表格) | object |  是
+ | logoLink | | logo点击后的跳转地址（默认#） | string | 否
 pageHead | | | 框架上面的内容  | object | 是
  | user | | 最右侧用户头像+用户名+下拉部分的参数 | object |  是 
  | | userName | 用户名 | string |  是(如果启用了userChange则选填) 
@@ -361,17 +363,20 @@ const searchMenu = {
     type: 'input', // input输入框
     placeholder: '请输入规则编号',
     defaultValue: '默认值',
-    isRequire: true, // 是否必填        
+    isRequire: true, // 是否必填
+    other: {}, // 其它的属性        
   }, {
     id:'status',
     label: '选择时间',
     type: 'timePicker', 
     placeholder: '请输入时间',
+    other: {}, // 其它的属性     
   },{
     id: 'rule1',
     label: '选择日期范围',
     type: 'rangePicker', 
     placeholder: '请输入选择日期范围'
+    other: {}, // 其它的属性     
   }, {
     id:'status1',
     label: '使用状态',
@@ -381,6 +386,7 @@ const searchMenu = {
       label: '关闭',
       value: 4,
     }], 
+    other: {}, // 其它的属性     
   },],
   // 被隐藏起来的选项,如果默认全部显示，则不调用
   hidden: [{
@@ -388,6 +394,7 @@ const searchMenu = {
     label: '更新日期',
     type: 'datePicker', // 日期选择器
     placeholder: '请输入更新日期',
+    other: {}, // 其它的属性     
   }],
   // 新增按钮，默认白色背景的按钮，需要更改请重写组件  
   btns:[{
@@ -424,6 +431,7 @@ open | | | 常开的搜索选项 | array | 是
  | placeholder | | 默认提示文字 | string | 否
  | defaultValue | | 默认值 | string | 否
  | isRequire | | 是否必填，默认否 | bool | 否
+ | other | | 其它的拓展属性 | object | 否
 hidden| | | 默认隐藏的搜索选项，点展开才出现（参数配置和open一致） | array | 否
 searchCallBack| | | 搜索按钮的回调函数，返回参数values是json | function | 是
 resetCallBack| | | 充值按钮的回调函数，无返回参数 | function | 是
@@ -684,7 +692,8 @@ export { default as PageHeaderLayout } from './lib/pageHeaderLayout/index';
 接下来就可以发布到 NPM 了。
 
 ```sh
-npm publish
+npm run compile
+npm publish lib
 ```
 首次发布需要输入用户名密码描述等，教程可百度。之后每次发布只需要publish即可。
 

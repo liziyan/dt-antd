@@ -1,6 +1,6 @@
 import React from 'react';
 import { is, fromJS } from 'immutable';
-import { Layout, Icon, } from 'antd';
+import { Layout, Icon} from 'antd';
 import 'antd/dist/antd.css';
 import './index.less';
 import HeadLogo from './logo';
@@ -167,6 +167,7 @@ export default class SiderDemo extends React.Component {
       siderMenu: { // 框架的左边部分
         logo, // 左侧头部logo，默认为公交云logo
         title,// 左侧头部文字（必填）
+        logoLink, // logo的链接地址
         menu, // 左侧菜单栏数据，有固定格式，固定格式见最上面组件说明（必填）
       },
       pageHead: { // 顶部分的参数       
@@ -194,7 +195,7 @@ export default class SiderDemo extends React.Component {
           className={`main`}
         >
           <div className='left'>
-            <HeadLogo {...{logo, title, isTop, theme}} />
+            <HeadLogo {...{logo, title, isTop, theme, logoLink}} />
             <div
              style={{maxWidth}}
             >
@@ -221,7 +222,7 @@ export default class SiderDemo extends React.Component {
           collapsed={collapsed}
           className={`navSider fixSiderbar scroll ${theme.navTheme}`}
         >
-          <HeadLogo {...{logo, title, isTop, theme}} />
+          <HeadLogo {...{logo, title, isTop, theme, logoLink}} />
           <NavMenu {...{selectedKeys, menuProps, menu, path, isTop, theme, handleOpen: this.handleOpen.bind(this)}} />
         </Sider>
         <Layout>

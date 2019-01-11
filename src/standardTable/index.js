@@ -81,6 +81,7 @@ class StandardTable extends PureComponent {
       selectBtns,
       scroll,
       footer,
+      other,
     } = this.props;  
     let tableList;
     if(!!list){
@@ -155,6 +156,7 @@ class StandardTable extends PureComponent {
             onChange={this.handleTableChange}
             footer={footer}
             scroll={scroll}
+            {...other}
           />) : (<Table
             loading={loading}
             rowKey={rowKey || 'key'}                
@@ -165,6 +167,7 @@ class StandardTable extends PureComponent {
             footer={footer}
             onChange={this.handleTableChange}
             scroll={scroll}
+            {...other}
           />)
         }
       </div>

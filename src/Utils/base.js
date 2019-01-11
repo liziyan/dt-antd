@@ -108,6 +108,30 @@ export default {
       now.setSeconds(0);
       return [moment(now), moment(now.getTime() + (oneDay - 1000))];
     }
+    // 昨日
+    if (type === 'yestoday') {
+      const last = new Date(Date.parse(now) - oneDay);
+      last.setHours(0);
+      last.setMinutes(0);
+      last.setSeconds(0);
+      return [moment(last), moment(last.getTime() + (oneDay - 1000))];
+    }
+    // 最近7天
+    if(type === 'oneWeek') {
+      const oneWeekLast = new Date(Date.parse(now) - 1000 * 60 * 60 * 24 * 7);
+      now.setHours(0);
+      now.setMinutes(0);
+      now.setSeconds(0);
+      return [moment(oneWeekLast.getTime() + (oneDay - 1000)), moment(now)];
+    }
+    // 最近14天
+    if(type === 'twoWeek') {
+      const twoWeekLast = new Date(Date.parse(now) - 1000 * 60 * 60 * 24 * 14);
+      now.setHours(0);
+      now.setMinutes(0);
+      now.setSeconds(0);
+      return [moment(twoWeekLast.getTime() + (oneDay - 1000)), moment(now)];
+    }
     if (type === 'week') {
       let day = now.getDay();
       now.setHours(0);

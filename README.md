@@ -569,7 +569,7 @@ FormatPrice | | 格式化金额，并加千分位 |  |  |
  | thousands_sep | 千分位符号 | string | 否 | 默认,
  | dec_point | 小数点符号 | string | 否 | 默认.
 getTimeDistance | | 获取时间区间 |  |  | 
- | type | 获取时间区间格式，today今日，week本周,month本月，year今年 | string | 是 | 目前只有定制公交的优惠券用到
+ | type | 获取时间区间格式，today今日，yestoday昨日，oneWeek最近7天，twoWeek最近14天，week本周,month本月，year今年 | string | 是 | 目前只有定制公交的优惠券用到
 
 ## FormStyle
 

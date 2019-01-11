@@ -11,5 +11,9 @@ export default {
   //身份证
   IDnumber: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
   // 不能输入汉字
-  passwordM: /^[^\u4e00-\u9fa5]{0,}$/
+  passwordM: /^[^\u4e00-\u9fa5]{0,}$/,
+  // 营业执照号
+  businessNumber: /(^(?:(?![IOZSV])[\dA-Z]){2}\d{6}(?:(?![IOZSV])[\dA-Z]){10}$)|(^\d{15}$)/,
+  // 邮箱
+  email: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/,
 }

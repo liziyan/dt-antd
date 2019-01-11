@@ -73,10 +73,10 @@ export default class TableDrawer extends React.Component {
                   return (<Col span={value.col} key={_index}>
                     <div className='tableDetailTile'>
                        <p>{value.title}{value.title && ':' }</p>
-                      {
-                        value.content && value.content
-                      }
-                      <Row>
+                       {
+                          value.content && value.content
+                        }                      
+                      <Row>                        
                         {
                           value.picUrl && <img className="pic" src={value.picUrl} onClick={(e)=>{                            
                             this.setState({
@@ -84,18 +84,17 @@ export default class TableDrawer extends React.Component {
                               ModalImg: value.picUrl,
                             })
                           }} alt=''/>
-                        }
+                        }                        
                       </Row>
-
                       {
-                        value.linkUrl && <a href={value.linkUrl} target="_blank">{value.linkUrl}</a>
-                      }
-                      {
-                        value.tags &&
-                        value.tags.map((item, index) => {
-                          return (<Tag key={index}>{item}</Tag>)
-                        })
-                      }                    
+                          value.linkUrl && <a href={value.linkUrl} target="_blank">{value.linkUrl}</a>
+                        }
+                        {
+                          value.tags &&
+                          value.tags.map((item, index) => {
+                            return (<Tag key={index}>{item}</Tag>)
+                          })
+                        }             
                     </div>                    
                   </Col>)
                 })

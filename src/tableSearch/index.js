@@ -83,7 +83,6 @@ import {
   Cascader,
 } from 'antd';
 import { is, fromJS } from 'immutable';
-import options from './cascader-address-options';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -121,7 +120,7 @@ class TableSearch extends React.Component {
    * @param  {[type]} e [description]
    * @return {[type]}   [description]
    */
-  searchCallBack = (e) => {
+  searchCallBack = (e, callBack) => {
     e.preventDefault();
     const {form} = this.props;
     form.validateFields((err, fieldsValue) => {      
@@ -130,7 +129,7 @@ class TableSearch extends React.Component {
         ...fieldsValue,
         updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
       };
-      this.props.searchCallBack(values);      
+      callBack(values);      
     });
   }
   /**
@@ -163,7 +162,9 @@ class TableSearch extends React.Component {
       sm:{span: 24}
     };
     const formItemLayout = {};
-    return (<Form onSubmit={this.searchCallBack} layout="inline">
+    return (<Form onSubmit={(e)=>{
+      this.searchCallBack(e, this.props.searchCallBack)
+    }} layout="inline">
       {        
         item.map((value, index) => {          
           return (<Row gutter={{ md: 8, lg: 24, xl: 48 }} key={index}>
@@ -199,7 +200,9 @@ class TableSearch extends React.Component {
                 case 'datePicker':
                   return (<Col {...colLayout} key={_index}>
                     <FormItem label={label} {...formItemLayout}>
-                      {getFieldDecorator(id)(
+                      {getFieldDecorator(id, {
+                          initialValue: defaultValue,
+                        })(
                         <DatePicker style={{ width: '100%' }} key={id} placeholder={placeholder} {...other} />
                       )}
                     </FormItem>
@@ -207,7 +210,9 @@ class TableSearch extends React.Component {
                 case 'timePicker':
                   return (<Col {...colLayout} key={_index}>
                     <FormItem label={label} {...formItemLayout}>
-                      {getFieldDecorator(id)(
+                      {getFieldDecorator(id, {
+                          initialValue: defaultValue,
+                        })(
                         <TimePicker style={{ width: '100%' }} key={id} placeholder={placeholder} {...other} />
                       )}
                     </FormItem>
@@ -215,7 +220,9 @@ class TableSearch extends React.Component {
                 case 'rangePicker':
                   return (<Col {...colLayout} key={_index}>
                     <FormItem label={label} {...formItemLayout}>
-                      {getFieldDecorator(id)(
+                      {getFieldDecorator(id, {
+                          initialValue: defaultValue,
+                        })(
                         <RangePicker key={id} style={{ width: '100%' }} placeholder={placeholder} {...other} />
                       )}
                     </FormItem>
@@ -223,8 +230,10 @@ class TableSearch extends React.Component {
                 case 'Cascader':
                   return (<Col {...colLayout} key={_index}>
                     <FormItem label={label} {...formItemLayout}>
-                      {getFieldDecorator(id)(
-                        <Cascader options={option || options} placeholder={placeholder} {...other} />
+                      {getFieldDecorator(id, {
+                          initialValue: defaultValue,
+                        })(
+                        <Cascader options={option} placeholder={placeholder} {...other} />
                       )}
                     </FormItem>
                   </Col>);
@@ -246,8 +255,8 @@ class TableSearch extends React.Component {
               </Button>
               {
                 this.props.btns && this.props.btns.map((item, index)=>{
-                  return (<Button key={index} style={{ marginLeft: 8 }} onClick={()=>{
-                    item.callBack();
+                  return (<Button key={index} style={{ marginLeft: 8 }} onClick={(e)=>{
+                    this.searchCallBack(e, item.callBack);                    
                   }}>
                     {item.text}
                   </Button>)
@@ -282,8 +291,8 @@ class TableSearch extends React.Component {
             </Button>
             {
               this.props.btns && this.props.btns.map((item, index)=>{
-                return (<Button key={index} style={{ marginLeft: 8 }} onClick={()=>{
-                  item.callBack();
+                return (<Button key={index} style={{ marginLeft: 8 }} onClick={(e)=>{
+                  this.searchCallBack(e, item.callBack); 
                 }}>
                   {item.text}
                 </Button>)

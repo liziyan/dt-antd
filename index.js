@@ -12,6 +12,8 @@ export { default as ReviewImage } from './lib/reviewImage/index';
 export { default as DrawerDetail } from './lib/tableDrawer/index';
 // 表格头部搜索组件
 export { default as TableSearch } from './lib/tableSearch/index';
+// 表格头部搜索组件-小没有title
+export { default as TableSearchSmall } from './tableSearch/small';
 // 表格组件
 export { default as StandardTable } from './lib/standardTable/index';
 // 上传图片（小图模式）

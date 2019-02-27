@@ -11,10 +11,12 @@
   - [ReviewImage-查看大图](#ReviewImage)  
   - [DrawerDetail-抽屉查看详情](#DrawerDetail)
   - [TableSearch - 表格上方的搜索组件](#TableSearch)
+  - [TableSearchSmall - 表格上方的搜索组件，没有title](#TableSearchSmall)  
   - [StandardTable - 表格的封装组件](#StandardTable)
   - [UploadImage - 上传图片(困图模式)](#UploadImage)
   - [UploadImageAvatar - 上传图片(头像模式)](#UploadImage)
   - [UploadImageSmall - 上传图片(无图模式)](#UploadImage)
+  - [Drag - 拖拽排序](#Drag)
 - [公用方法说明]
   - [Utils-公用的方法](#Utils)
   - [FormStyle-form表单的公用style样式](#FormStyle)
@@ -440,6 +442,10 @@ btns| | | 默认有搜索和重置，除此之外还需要添加其它按钮再�
  | label | | 按钮上显示的文字 | string | 是
  | callBack | | 回调函数，无参数返回 | function | 是
 
+## TableSearchSmall
+
+参数与TableSearch一样，只是启用此种模式后，没有title没有更多所有搜索项直接平铺过来
+
 ## StandardTable
 
 表格的封装组件，只能满足部分功能：【列表展示，全选，列固定宽度底部有横向滚动条，左侧和右侧某列固定，页脚】
@@ -497,6 +503,7 @@ columns | | 表头设置 | array | 是 | 具体配置项看antdesign的table组�
 rowKey | | 每行对应的key，每行不能重复，建议用id | string或int | 是
 onChange | | 表格分页状态改变之后 | function | 是 | Function(selectedRowKeys, selectedRows)
 noCheck | | 是否有全选,默认为false | bool | 否 |
+checkOther | | 选择之后的显示自定义，启用后除了自定义内容什么都不显示 | object | 否
 selectBtns | | 如果有全选，选中之后的公用操作 | object | 否 | 
  | title | 显示的文字 | string | 是 |
  | judgeShow | 是否要选中行才显示 | bool | 是 |
@@ -537,7 +544,43 @@ name | 字段名，类似id | string | 是
 imageUrl | 默认图片URL | string | 否
 handleUploadImg | 上传后的回调函数 | function | 是 | 返回参数为oss地址
 
+## Drag
 
+拖拽排序组件。
+
+
+调用方法:
+
+```js
+import {Drag} from 'dt-antd';
+
+const value = [
+  {content: 'div1',code: '01',sort: 0},
+  {content: 'div2',code: '02',sort: 1},
+  {content: 'div3',code: '03',sort: 2},
+  {content: 'div4',code: '04',sort: 3},
+  {content: 'div5',code: '05',sort: 4},
+]
+<Drag
+  value={value}
+  sortKey='sort'
+  codeKey='code'
+  style={{color: '#fff'}}
+  onChange={data => console.log(data)}
+/>
+```
+**path参数说明**
+
+参数名 | 子参数 | 描述 | 类型 | 是否必填 | 备注 
+----|----|----------|----|----|----------
+value | | 展示的数据 | object | 是 |
+ | conent | 展示的内容 | object | 是 |
+ | code | 这个字段作为拖拽元素的key | string | 是 | 这个字段名可改，但必须要有这个字段
+ | sort | 这个字段作为排序 | int | 是 | 这个字段名可改，但必须要有这个字段
+style | | 样式 | object | 否
+sortKey | | 排序的对应字段，示例中对应的是value中的sort | string | 否 | 默认sort
+codeKey | | 拖拽元素的对应字段，示例中对应的是value中的code | string | 否 | 默认为code
+onChange | | 拖拽后的事件，返回重新排序后的value数据 | function | 是
 
 ## Utils
 

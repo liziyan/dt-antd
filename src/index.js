@@ -12,6 +12,8 @@ export { default as ReviewImage } from './reviewImage/index';
 export { default as DrawerDetail } from './tableDrawer/index';
 // 表格头部搜索组件
 export { default as TableSearch } from './tableSearch/index';
+// 表格头部搜索组件-小没有title
+export { default as TableSearchSmall } from './tableSearch/small';
 // 表格组件
 export { default as StandardTable } from './standardTable/index';
 // 上传图片（小图模式）
@@ -28,3 +30,5 @@ export { default as FormStyle } from './Utils/formStyle';
 export { default as TableCommon } from './Utils/tableCommon';
 // 验证的正则表达式
 export { default as InputVerify } from './Utils/verify';
+// 拖拽元素
+export { default as Drag } from './Drag/index';

@@ -69,6 +69,7 @@ export default class SiderDemo extends React.Component {
     this.setState({
       collapsed: !this.state.collapsed,
     });
+    window.localStorage.setItem('collapsed', !this.state.collapsed);
   }
   static getDerivedStateFromProps(props) {
     return {
@@ -97,6 +98,7 @@ export default class SiderDemo extends React.Component {
     window.onresize = function(){
       that.getPageChange();
     };
+    window.localStorage.setItem('collapsed', false);
   }
   /**
    * [获取窗体的改变]
@@ -108,10 +110,12 @@ export default class SiderDemo extends React.Component {
       this.setState({
         collapsed: false
       })
+      window.localStorage.setItem('collapsed', false);
     } else if(width <= 1366 && !this.state.collapsed) {
       this.setState({
         collapsed: true
       })
+      window.localStorage.setItem('collapsed', true);
     }
   }
   /**

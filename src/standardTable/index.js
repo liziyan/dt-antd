@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Table, Alert } from 'antd';
-import './index.less';
+
 /**
  * @describe： 列表表格的公用组件。直接取用的ant-design-pro的封装组件，代码注释后期有时间加上
  * @author: ant-design-pro
@@ -79,6 +79,7 @@ class StandardTable extends PureComponent {
       rowKey,
       noCheck,
       selectBtns,
+      checkOther, // 自定义选中后的显示
       scroll,
       footer,
       other,
@@ -112,37 +113,41 @@ class StandardTable extends PureComponent {
     return (
       <div className='standardTable'>
         {
-          !noCheck && (<div className='tableAlert'>
+          !noCheck && selectedRowKeys.length>0 && (<div className='tableAlert'>          
             <Alert
               message={
                 <Fragment>
-                  已选择 <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> 项&nbsp;&nbsp;
-                  {needTotalList.map(item => (
-                    <span style={{ marginLeft: 8 }} key={item.dataIndex}>
-                      {item.title}
-                      总计&nbsp;
-                      <span style={{ fontWeight: 600 }}>
-                        {item.render ? item.render(item.total) : item.total}
-                      </span>
-                    </span>
-                  ))}
-                  <a onClick={this.cleanSelectedKeys} style={{ marginLeft: 24 }}>
-                    清空
-                  </a>
                   {
-                    selectBtns && selectBtns.map((item,index) => {
-                      if((item.judgeShow && selectedRowKeys.length>0) || !item.judgeShow) {
-                        return (
-                          <a key={index} onClick={item.callBack} style={{marginLeft: 24}}>
-                            {item.title}
-                          </a>)                        
-                      } else return ''
-                    })
-                  }
+                    checkOther || <div>
+                      已选择 <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> 项&nbsp;&nbsp;
+                      {needTotalList.map(item => (
+                        <span style={{ marginLeft: 8 }} key={item.dataIndex}>
+                          {item.title}
+                          总计&nbsp;
+                          <span style={{ fontWeight: 600 }}>
+                            {item.render ? item.render(item.total) : item.total}
+                          </span>
+                        </span>
+                      ))}
+                      <a onClick={this.cleanSelectedKeys} style={{ marginLeft: 24 }}>
+                        清空
+                      </a>
+                      {
+                        selectBtns && selectBtns.map((item,index) => {
+                          if((item.judgeShow && selectedRowKeys.length>0) || !item.judgeShow) {
+                            return (
+                              <a key={index} onClick={item.callBack} style={{marginLeft: 24}}>
+                                {item.title}
+                              </a>)                        
+                          } else return ''
+                        })
+                      }
+                    </div>
+                  }                  
                 </Fragment>
-              }
+              }             
               type="info"
-              showIcon
+              showIcon={!checkOther}
             />
           </div>)
         }

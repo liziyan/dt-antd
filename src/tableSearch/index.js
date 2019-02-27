@@ -60,13 +60,7 @@
         callBack: this.handleOut,
       }],
       searchCallBack: (values) => console.log(values), // 查询的回调函数
-      resetCallBack: this.handleFormReset, // 重置的回调函数
-      // 除查询和重置外还要加的按钮组，默认加载查询前面，如不满足，重改组件。暂时用不到，所以没做，如果需要，请再对组件进行拓展
-      btns: [{
-        type: 'button',
-        label: '导出',
-        callBack: this.handleSearch, // 回调函数
-      }]
+      resetCallBack: this.handleFormReset, // 重置的回调函数     
     }
  */
 import React from 'react';

@@ -8,6 +8,7 @@ import { Table, Alert } from 'antd';
  *                    修改勾选框的disabled为readOnly,因为和后台的字段冲突
  * @update:2018-08-22 新增scroll参与，用于表格的固定显示
  * @updata:2018-08-24 新增footer，用于页脚的显示
+ * @updata:2019-03-12 新增cleanSelectRow参数，当为true时清空所有选择
  */
 function initTotalList(columns) {
   const totalList = [];
@@ -32,7 +33,7 @@ class StandardTable extends PureComponent {
   }
 
   static getDerivedStateFromProps (nextProps, state) {
-    if (nextProps.selectedRows && nextProps.selectedRows.length === 0) {
+    if ((nextProps.selectedRows && nextProps.selectedRows.length === 0) || nextProps.cleanSelectRow) {
       const needTotalList = initTotalList(nextProps.columns);
       return{
         selectedRowKeys: [],

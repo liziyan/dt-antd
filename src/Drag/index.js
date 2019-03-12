@@ -30,7 +30,7 @@
  *   
  */
 import React, { Component } from 'react';
-import * as styles from './index.less'
+import './index.less'
 
 export default class VDraggable extends Component {
     constructor(props) {
@@ -56,13 +56,13 @@ export default class VDraggable extends Component {
     // 拖动后鼠标进入另一个可接受区域
     dragenter(ee) {
         if (ee.target.className.indexOf('droppedcontent') !== -1) {
-            ee.target.className = styles.droppingContent;
+            ee.target.className = 'droppingContent';
         }
     }
     // a拖到b，离开b的时候触发
     dragleave(ee) {
         if (ee.target.className.indexOf('droppingContent') !== -1) {
-            ee.target.className = styles.droppedcontent;
+            ee.target.className = 'droppedcontent';
         }
     }
     // 对象排序
@@ -126,7 +126,7 @@ export default class VDraggable extends Component {
         }
         this.props.onChange(data)
         if (ee.target.className.indexOf('droppingContent') !== -1) {
-            ee.target.className = styles.droppedcontent;
+            ee.target.className = 'droppedcontent';
         }
 
     }
@@ -138,7 +138,7 @@ export default class VDraggable extends Component {
         return data.sort(this.compare(sortKey)).map((item) => {
             return (
                 <div
-                    className={styles.droppedcontent}
+                    className={'droppedcontent'}
                     key={item[codeKey]}
                     draggable={true}
                     onDragEnter={this.dragenter.bind(this)}

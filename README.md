@@ -487,8 +487,10 @@ const selectBtns = [{
   onChange={(selectedRowKeys, selectedRows)=>console.log(selectedRowKeys, selectedRows)}
   noCheck={true}
   footer=footer={() =><span>实收总金额： 5元</span>}
+  onSelectRow={rows=>console.log(rows)}
   selectBtns={selectBtns}
   scroll={{x: 500}}
+  cleanSelectRow={true}
 /> 
 ```
 **path参数说明**
@@ -502,6 +504,8 @@ data | | 展示的数据 | object | 是 |
 columns | | 表头设置 | array | 是 | 具体配置项看antdesign的table组件，https://ant.design/components/table-cn/
 rowKey | | 每行对应的key，每行不能重复，建议用id | string或int | 是
 onChange | | 表格分页状态改变之后 | function | 是 | Function(selectedRowKeys, selectedRows)
+onSelectRow | | 勾选之后 | function | 否 | function(rows)，返回被勾选的rows
+cleanSelectRow | | 清空所有勾选项 | bool | 否 | true表示清空，常用于外部按钮控制，需要再onSelectRow回调函数里重置为false以不影响正常使用
 noCheck | | 是否有全选,默认为false | bool | 否 |
 checkOther | | 选择之后的显示自定义，启用后除了自定义内容什么都不显示 | object | 否
 selectBtns | | 如果有全选，选中之后的公用操作 | object | 否 | 

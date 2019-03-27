@@ -532,6 +532,8 @@ import {UploadImage} from 'dt-antd';
   url={`${url.uploadImage}?identityType=1`}
   name='bizLicCodeAttach'
   imageUrl={detail && detail.bizLicCodeAttach}
+  headers={headers}
+  data={data}
   handleUploadImg= {(imageUrl)=>{                                       
     this.setState({
       bizLicCodeAttach: imageUrl
@@ -546,6 +548,8 @@ import {UploadImage} from 'dt-antd';
 url | 上传的服务器地址 | string | 是
 name | 字段名，类似id | string | 是
 imageUrl | 默认图片URL | string | 否
+headers | 请求对应的headers | object | 否
+data | 请求对应的参数 | object | 否
 handleUploadImg | 上传后的回调函数 | function | 是 | 返回参数为oss地址
 
 ## Drag

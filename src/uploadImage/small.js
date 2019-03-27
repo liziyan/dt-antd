@@ -125,7 +125,7 @@ export default class TableDrawer extends React.Component {
    */
   render() {
     const {previewVisible, previewImage, fileList} = this.state;
-    const {url}=this.props;
+    const {url, headers, data}=this.props;
     const uploadButton = (
       <Button>
         <Icon type={this.state.loading ? 'loading' : 'upload'} />
@@ -136,7 +136,9 @@ export default class TableDrawer extends React.Component {
       <div className="clearfix">
         <Upload
           action={url}
-          listType='picture'
+          listType='picture'          
+          headers={headers}
+          data={data}
           accept='image/png,image/jpg,image/jpeg,image/bmp'
           fileList={fileList}
           withCredentials={true}

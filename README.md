@@ -433,6 +433,7 @@ open | | | 常开的搜索选项 | array | 是
  | placeholder | | 默认提示文字 | string | 否
  | defaultValue | | 默认值 | string | 否
  | isRequire | | 是否必填，默认否 | bool | 否
+ | width | | 宽度，默认100(select起作用) | int | 否
  | other | | 其它的拓展属性 | object | 否
 hidden| | | 默认隐藏的搜索选项，点展开才出现（参数配置和open一致） | array | 否
 searchCallBack| | | 搜索按钮的回调函数，返回参数values是json | function | 是

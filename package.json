@@ -1,6 +1,6 @@
 {
   "name": "dt-antd",
-  "version": "0.0.2beta3",
+  "version": "0.0.2beta7",
   "description": "antd for DTchuxing.com's Background management system",
   "main": "index.js",
   "scripts": {

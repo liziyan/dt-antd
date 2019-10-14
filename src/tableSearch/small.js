@@ -144,7 +144,7 @@ class TableSearch extends React.Component {
     }} layout="inline">
       {            
         open.map((key, _index) => {
-          const {placeholder, id, option, defaultValue, isRequire, other} = key;
+          const {placeholder, id, option, defaultValue, isRequire, other, width} = key;
           switch(key.type) {
             case 'input':
               return <FormItem key={_index}>
@@ -158,7 +158,7 @@ class TableSearch extends React.Component {
                 {getFieldDecorator(id, {
                   initialValue: defaultValue,
                 })(
-                  <Select placeholder={placeholder} key={id} {...other}>
+                  <Select placeholder={placeholder} style={{minWidth: width || 100}} key={id} {...other}>
                     {
                       option && option.map((item) => {
                         return (<Option key={item.value} value={item.value}>{item.label}</Option>)

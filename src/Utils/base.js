@@ -32,27 +32,29 @@ export default {
    * @return {[type]} date      [description]
    */
   FormatDate: (times, format = 'yyyy-MM-dd hh:mm:ss') => {
-    times = new Date(times)
-    let date = {
-      'M+': times.getMonth() + 1,
-      'd+': times.getDate(),
-      'h+': times.getHours(),
-      'm+': times.getMinutes(),
-      's+': times.getSeconds(),
-      'q+': Math.floor((times.getMonth() + 3) / 3),
-      'S+': times.getMilliseconds(),
-    };
-    if (/(y+)/i.test(format)) {
-      format = format.replace(RegExp.$1, (times.getFullYear() + '')
-        .substr(4 - RegExp.$1.length));
-    }
-    for (let k in date) {
-      if (new RegExp('(' + k + ')').test(format)) {
-        format = format.replace(RegExp.$1, RegExp.$1.length === 1
-          ? date[k] : ('00' + date[k]).substr(('' + date[k]).length));
+    if(times){
+      times = new Date(times)
+      let date = {
+        'M+': times.getMonth() + 1,
+        'd+': times.getDate(),
+        'h+': times.getHours(),
+        'm+': times.getMinutes(),
+        's+': times.getSeconds(),
+        'q+': Math.floor((times.getMonth() + 3) / 3),
+        'S+': times.getMilliseconds(),
+      };
+      if (/(y+)/i.test(format)) {
+        format = format.replace(RegExp.$1, (times.getFullYear() + '')
+          .substr(4 - RegExp.$1.length));
       }
-    }    
-    return format;
+      for (let k in date) {
+        if (new RegExp('(' + k + ')').test(format)) {
+          format = format.replace(RegExp.$1, RegExp.$1.length === 1
+            ? date[k] : ('00' + date[k]).substr(('' + date[k]).length));
+        }
+      }    
+      return format;
+    } else return ''    
   },
   /**
   * [金额格式化]
